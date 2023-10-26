@@ -65,6 +65,7 @@ const Signup = (props) => {
       const data = await response.json();
       console.log(data.idToken);
       dispatch(authActions.login(data.idToken));
+      localStorage.setItem("email", enteredEmail);
       history.replace("/mail");
     } catch (error) {
       console.log(error);
