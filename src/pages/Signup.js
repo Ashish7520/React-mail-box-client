@@ -1,6 +1,7 @@
 import { Form, Button, Card } from "react-bootstrap";
 import { authActions } from "../store/Auth";
 import { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
@@ -8,18 +9,18 @@ import classes from "./Signup.module.css";
 
 const Signup = (props) => {
   const [isLogin, setIsLogin] = useState(false);
-  const [disable, setDisable] = useState(false);
+  const history = useHistory();
 
   const dispatch = useDispatch();
+
+  const inputEmailRef = useRef();
+  const inputPasswordRef = useRef();
+  const inputConfirmPasswordRef = useRef();
 
   const loginHandler = () => {
     const data = !isLogin;
     setIsLogin(data);
   };
-
-  const inputEmailRef = useRef();
-  const inputPasswordRef = useRef();
-  const inputConfirmPasswordRef = useRef();
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -28,7 +29,6 @@ const Signup = (props) => {
     const enteredPassword = inputPasswordRef.current.value;
 
     if (enteredEmail.length == 0 || enteredPassword.length == 0) {
-      setDisable(true);
       return;
     }
 
@@ -65,6 +65,7 @@ const Signup = (props) => {
       const data = await response.json();
       console.log(data.idToken);
       dispatch(authActions.login(data.idToken));
+      history.replace("/mail");
     } catch (error) {
       console.log(error);
     }
