@@ -53,6 +53,7 @@ const Mailbox = () => {
         sender: email,
         isViewed: false,
         id: randomId,
+        trash: false,
       })
     );
     // You can send the email to your server or Firebase here.

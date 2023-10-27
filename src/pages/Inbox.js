@@ -73,28 +73,36 @@ const Inbox = () => {
     setSelectedEmail(null);
   };
 
-  const emailList = updatedEmails.map((email) => (
-    <div key={email.id}>
-      <Link to="#" onClick={() => handleEmailClick(email)}>
-        <div>
-          {email.isViewed ? (
-            // Email is viewed, render without the dot
-            <div>
-              <strong>From:</strong> {email.sender}
-            </div>
-          ) : (
-            // Email is not viewed, render with a small dot at the beginning of "From"
-            <div>
-              &bull; <strong>From:</strong> {email.sender}
-            </div>
-          )}
+  const deleteHandler = (email) => {
+    console.log(email.id, "delete Handler");
+    dispatch(mailAction.isTrashed(email.id));
+  };
+
+  const emailList = updatedEmails
+    .filter((email) => !email.trash)
+    .map((email) => (
+      <div key={email.id}>
+        <Link to="#" onClick={() => handleEmailClick(email)}>
           <div>
-            <strong>Subject:</strong> {email.subject}
+            {email.isViewed ? (
+              // Email is viewed, render without the dot
+              <div>
+                <strong>From:</strong> {email.sender}
+              </div>
+            ) : (
+              // Email is not viewed, render with a small dot at the beginning of "From"
+              <div>
+                &bull; <strong>From:</strong> {email.sender}
+              </div>
+            )}
+            <div>
+              <strong>Subject:</strong> {email.subject}
+            </div>
           </div>
-        </div>
-      </Link>
-    </div>
-  ));
+        </Link>
+        <Button onClick={() => deleteHandler(email)}>Delete</Button>
+      </div>
+    ));
 
   return (
     <div>
