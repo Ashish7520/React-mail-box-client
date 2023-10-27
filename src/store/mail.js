@@ -12,6 +12,15 @@ const mail = createSlice({
       console.log(action.payload, "inside reducer");
       state.mails.push(action.payload);
     },
+
+    isViewed: (state, action) => {
+      const id = action.payload;
+      console.log(id, "inside reducer");
+      const mailToView = state.mails.find((item) => item.id == id);
+      if (mailToView) {
+        mailToView.isViewed = true;
+      }
+    },
   },
 });
 
