@@ -1,31 +1,25 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./Sidebar.css";
 
 const Sidebar = () => {
   return (
-    <Nav defaultActiveKey="/inbox" className="flex-column">
-      <Nav.Item>
-        <Link to="/inbox" className="nav-link">
-          Inbox
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link to="/sent" className="nav-link">
-          Sent
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link to="/draft" className="nav-link">
-          Drafts
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link to="/trash" className="nav-link">
-          Trash
-        </Link>
-      </Nav.Item>
-    </Nav>
+    <div className="sidebar">
+      <ul>
+        <li>
+          <Link to="/inbox">Inbox</Link>
+        </li>
+        <li>
+          <Link to="/sent">Sent</Link>
+        </li>
+        <li>
+          <Link to="/draft">Drafts</Link>
+        </li>
+        <li>
+          <Link to="/trash">Trash</Link>
+        </li>
+      </ul>
+    </div>
   );
 };
 

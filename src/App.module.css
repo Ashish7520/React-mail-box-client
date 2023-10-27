@@ -1,0 +1,37 @@
+/* Sidebar.module.css */
+.outerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #333; /* 100% of the viewport height */
+}
+
+.appCard {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  color: #333;
+  padding: 20px;
+  text-align: center;
+  width: 900px;
+  height: 600px;
+}
+
+.appBtn {
+  margin-left: 150px;
+  margin-top: 40px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.appBtn:hover {
+  background-color: #2980b9;
+}
+/* Add more styles as needed */

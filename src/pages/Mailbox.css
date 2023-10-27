@@ -1,0 +1,46 @@
+/* Mailbox.css */
+
+/* Style for the compose email container */
+.container {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the email recipient input field */
+.form-control[type="email"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Style for the email subject input field */
+.form-control[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Style for the editor */
+.rdw-editor-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* Style for the send email button */
+.mailBtn {
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mailBtn:hover {
+  background-color: #0056b3;
+}

@@ -5,6 +5,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Container, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { mailAction } from "../store/mail";
+import "./Mailbox.css";
 
 const Mailbox = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -75,6 +76,7 @@ const Mailbox = () => {
             placeholder="Recipient's Email"
             value={recipient}
             onChange={handleRecipientChange}
+            className="form-control"
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -83,15 +85,17 @@ const Mailbox = () => {
             placeholder="Subject"
             value={subject}
             onChange={handleSubjectChange}
+            className="form-control"
           />
         </Form.Group>
         <Form.Group className="mb-3">
           <Editor
             editorState={editorState}
             onEditorStateChange={onEditorStateChange}
+            className="editor"
           />
         </Form.Group>
-        <Button variant="primary" onClick={sendEmail}>
+        <Button className="mailBtn" variant="primary" onClick={sendEmail}>
           Send
         </Button>
       </Form>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { mailAction } from "../store/mail";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import "./Inbox.css";
 
 const Inbox = () => {
   const dispatch = useDispatch();
@@ -89,23 +90,23 @@ const Inbox = () => {
   const emailList = updatedEmails
     .filter((email) => !email.trash)
     .map((email) => (
-      <div key={email.id}>
+      <div key={email.id} className="email-item">
         <Link to="#" onClick={() => handleEmailClick(email)}>
-          <div>
+          <div className="email-info">
             {email.isViewed ? (
               // Email is viewed, render without the dot
-              <div>
+              <span>
                 <strong>From:</strong> {email.sender}
-              </div>
+              </span>
             ) : (
               // Email is not viewed, render with a small dot at the beginning of "From"
-              <div>
+              <span>
                 &bull; <strong>From:</strong> {email.sender}
-              </div>
+              </span>
             )}
-            <div>
+            <span className="subject">
               <strong>Subject:</strong> {email.subject}
-            </div>
+            </span>
           </div>
         </Link>
         <Button onClick={() => deleteHandler(email)}>Delete</Button>

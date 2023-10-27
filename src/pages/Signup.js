@@ -2,9 +2,7 @@ import { Form, Button, Card } from "react-bootstrap";
 import { authActions } from "../store/Auth";
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
-
 import classes from "./Signup.module.css";
 
 const Signup = (props) => {
@@ -75,37 +73,29 @@ const Signup = (props) => {
   };
 
   return (
-    <div className={classes.outerDiv}>
-      <Card>
-        <Card.Body>
-          <Form onSubmit={formHandler}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                ref={inputEmailRef}
-              />
-            </Form.Group>
+    <div className={classes.background}>
+      <div className={classes.formContainer}>
+        <div>
+          <label>Email address</label>
+          <input type="email" placeholder="Enter email" ref={inputEmailRef} />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            ref={inputPasswordRef}
+          />
+        </div>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                ref={inputPasswordRef}
-              />
-            </Form.Group>
+        <button className={classes.btn} type="submit" onClick={formHandler}>
+          {isLogin ? "Login" : "Sign-Up"}
+        </button>
 
-            <Button variant="primary" type="submit">
-              {isLogin ? "Login" : "Sign-Up"}
-            </Button>
-          </Form>
-          <Card.Text onClick={loginHandler}>
-            {isLogin ? "New User - Sign Up" : "Already User - Login"}
-          </Card.Text>
-        </Card.Body>
-      </Card>
+        <p onClick={loginHandler}>
+          {isLogin ? "New User - Sign Up" : "Already User - Login"}
+        </p>
+      </div>
     </div>
   );
 };

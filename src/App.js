@@ -1,22 +1,27 @@
-import React, { useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Mailbox from "./pages/Mailbox";
 import Signup from "./pages/Signup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "./store/Auth";
 import Inbox from "./pages/Inbox";
 import Sidebar from "./components/Sidebar";
 import Sent from "./pages/Sent";
 import Trash from "./pages/Trash";
 import Draft from "./pages/Draft";
-import { Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import styles from "./App.module.css";
 
 let initialRendering = true;
 
 function App() {
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  console.log(isLogin, "is login");
   const mail = useSelector((state) => state.mail.mails);
   console.log(mail, "inside app");
 
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (initialRendering) {
@@ -56,40 +61,75 @@ function App() {
     history.replace("/mail");
   };
 
+  // Conditionally render the Sidebar based on the current location
+  const shouldRenderSidebar = location.pathname !== "/mail";
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+    history.replace("/user");
+  };
+
   return (
-    <div>
-      <Route path="/user">
-        <Signup />
-      </Route>
-      <Route exact path="/mail">
-        <Mailbox />
-      </Route>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-3">
-            <Sidebar />
+    <div className={styles.outerDiv}>
+      <div className={styles.appCard}>
+        {!isLogin && (
+          <Route path="/user">
+            <Signup />
+          </Route>
+        )}
+
+        {isLogin && (
+          <Route path="/user">
+            <Redirect to="/" /> {/* Redirect to the root when logged in */}
+          </Route>
+        )}
+
+        {!isLogin && <Redirect from="/" to="/user" />}
+
+        {isLogin && (
+          <Route exact path="/mail">
+            <Mailbox />
+          </Route>
+        )}
+        {isLogin && (
+          <div className="container">
+            <div className="row">
+              {shouldRenderSidebar && (
+                <div className={`col-md-3 ${styles.sidebar}`}>
+                  <Sidebar />
+                </div>
+              )}
+              <div className={shouldRenderSidebar ? "col-md-9" : "col-md-12"}>
+                <Switch>
+                  <Route exact path="/inbox">
+                    <Inbox />
+                  </Route>
+                  <Route exact path="/sent">
+                    <Sent />
+                  </Route>
+                  <Route exact path="/draft">
+                    <Draft />
+                  </Route>
+                  <Route exact path="/trash">
+                    <Trash />
+                  </Route>
+                </Switch>
+              </div>
+            </div>
           </div>
-          <div className="col-md-9">
-            <Switch>
-              <Route exact path="/inbox">
-                <Inbox />
-              </Route>
-              <Route exact path="/sent">
-                <Sent />
-              </Route>
-              <Route exact path="/draft">
-                <Draft />
-              </Route>
-              <Route exact path="/trash">
-                <Trash />
-              </Route>
-            </Switch>
-          </div>
-        </div>
+        )}
+        {isLogin && (
+          <button className={styles.appBtn} onClick={logoutHandler}>
+            Logout
+          </button>
+        )}
+        {isLogin && (
+          <button className={styles.appBtn} onClick={buttonHandler}>
+            Compose
+          </button>
+        )}
       </div>
-      <Button variant="primary" onClick={buttonHandler}>
-        Compose
-      </Button>
     </div>
   );
 }

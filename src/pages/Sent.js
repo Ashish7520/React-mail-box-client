@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import "./Sent.css";
 
 const Sent = () => {
   function EmailModal({ email, onClose }) {
@@ -44,13 +45,15 @@ const Sent = () => {
   };
 
   const emailList = updatedEmails.map((email) => (
-    <div key={email.id}>
+    <div key={email.id} className="email-item">
       <Link to="#" onClick={() => handleEmailClick(email)}>
-        <div>
-          <strong>To:</strong> {email.recipient}
-        </div>
-        <div>
-          <strong>Subject:</strong> {email.subject}
+        <div className="email-info">
+          <span>
+            <strong>To:</strong> {email.recipient}
+          </span>
+          <span className="subject">
+            <strong>Subject:</strong> {email.subject}
+          </span>
         </div>
       </Link>
     </div>
