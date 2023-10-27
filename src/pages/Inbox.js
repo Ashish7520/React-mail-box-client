@@ -8,6 +8,7 @@ const Inbox = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Define a function to fetch data
     async function fetchData() {
       try {
         const response = await fetch(
@@ -21,15 +22,22 @@ const Inbox = () => {
         }
 
         const data = await response.json();
-        data.map((item) => {
-          dispatch(mailAction.addEmail(item));
-        });
+        dispatch(mailAction.replaceMails(data));
       } catch (error) {
         console.log(error);
       }
     }
 
+    // Fetch data initially
     fetchData();
+
+    // Set up an interval to fetch data every 2 seconds
+    const intervalId = setInterval(fetchData, 2000);
+
+    // Return a cleanup function to clear the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   function EmailModal({ email, onClose }) {

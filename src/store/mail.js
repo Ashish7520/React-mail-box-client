@@ -8,6 +8,10 @@ const mail = createSlice({
   name: "mail",
   initialState,
   reducers: {
+    replaceMails: (state, action) => {
+      state.mails = action.payload;
+    },
+
     addEmail: (state, action) => {
       console.log(action.payload, "inside reducer");
       state.mails.push(action.payload);
